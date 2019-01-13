@@ -1,5 +1,3 @@
 # Web_Scraping
 Mars web scraping and visualization project using python, beautiful soup and html in order to get the latest news about Mars.
-![Web_page_top](Web_Scraping/ Mars_Webscrape_image_2.png)
-
-![alt text](Web_Scraping/ Mars_Webscrape_image_2.png "Description goes here")
+![image](https://github.com/sherirosalia/Web_Scraping/issues/1#issue-398702711)
