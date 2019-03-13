@@ -2,16 +2,15 @@
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootswatch CSS -->
-    <link rel="stylesheet" type="text/css" href="../static/main.css">
-
-    <title>Mars_Webscrape</title>
-  </head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Mission to Mars</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../static/main.css">
+      </head>
+  
   <body>
   
 
@@ -68,11 +67,35 @@
         {{mars.mars_facts_table | safe}}
         </p>
       </div>
+    </div>
+  </div>
 
-      
+  <!-- Mars Hemispheres -->
+  <div class="row" id="mars-hemispheres" style="margin-top:80px;">
+
+    <div class="page-header">
+      <h2 class="text-center">Mars Hemispheres</h2>
     </div>
 
+
+    {% for item in mars.hemisphere_image_urls %}
+      <div class="col-md-6">
+          <div class="thumbnail">
+
+          <!-- if images is False/None/non-existent, then default to error message -->
+          <img src="{{item.img_url | default('static/images/error.png', true)}}"
+              alt="...">
+          <div class="caption">
+              <h3>{{item.title}}</h3>
+          </div>
+          </div>
+      </div>
+    {% endfor %}
+
   </div>
+
+
+</div><!--wrapper-->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

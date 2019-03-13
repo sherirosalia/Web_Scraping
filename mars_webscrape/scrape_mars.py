@@ -1,6 +1,6 @@
 
 #import dependencies
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as bs
 import pymongo
 import requests
 import time
@@ -26,10 +26,9 @@ def scrape():
     url = 'https://mars.nasa.gov/news/'
     #use splinter to open 
     browser.visit(url)
-
     #BeautifulSoup website object assigned variable, convert to html with BS4
     html = browser.html
-    soup = BeautifulSoup(html, 'html.parser')
+    soup = bs(html, 'html.parser')
 
     #optional:
     #print html & id classes for title and paragraph
@@ -47,12 +46,12 @@ def scrape():
 
     #extract paragraph object, assign variable
 
-    news_par = soup.find('div', class_= 'rollover_description_inner').text
-    print(news_par)
+    news_paragraph = soup.find('div', class_= 'rollover_description_inner').text
+    
 
     #add data to dictionary
     mars_info["news_title"]= news_title
-    mars_info["news_paragraph"]= news_par
+    mars_info["news_paragraph"]= news_paragraph
 
     #optional:  
     #print(mars_info)
@@ -76,7 +75,7 @@ def scrape():
 
     #scrape into soup using class 'lede'
     jpl_html = browser.html
-    jpl_soup = BeautifulSoup(jpl_html, 'html.parser')
+    jpl_soup = bs(jpl_html, 'html.parser')
     link = jpl_soup.find('figure', class_='lede').a['href']
     link
 
@@ -98,7 +97,7 @@ def scrape():
     sentiment_html = browser.html
     
     #scrape with soup
-    sentiment_soup = BeautifulSoup(sentiment_html, 'html.parser')
+    sentiment_soup = bs(sentiment_html, 'html.parser')
     #assign variable to dictionary
     mars_weather = sentiment_soup.find("p", class_= "TweetTextSize TweetTextSize--normal js-tweet-text tweet-text").text
 
@@ -136,19 +135,70 @@ def scrape():
     mars_facts_html.replace('\n', '')
 
 
-
-    #optional:
-    # print(mars_facts_html)
-
-    #optional:
-    # type(mars_facts_html)
-
     #add to dictionary
     mars_info["mars_facts_table"]= mars_facts_html
+    #browser.quit()
+    #return mars_info
+
+
+
+    #----- adding hemisphere images---------
+
+     # Visit the USGS Astogeology site and scrape pictures of the hemispheres
+    hemi_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
+    
+    browser.visit(hemi_url)
+
+    #use same variable, just reassign new info
+    hemi_html = browser.html
+    
+    #scrape with soup
+    hemi_soup = bs(hemi_html, 'html.parser')
+    #assign variable to dictionary
+    hemispheres = hemi_soup.find_all('a', class_="itemLink product-item")
+    #hemispheres = hemi_parse.find_all("a")
+
+
+    #titles for hemispheres
+    hemi_titles = []
+
+    for hemi in hemispheres:
+        try:
+            title=hemi.find('h3').text
+            link=hemi['href']
+            hemi_titles.append(title)
+        except:
+            continue 
+
+    print(hemi_titles)
+        # print(hemi)
+
+    #grab images for hemispheres
+    hemisphere_image_urls = []
+    for i in range(len(hemi_titles)):
+        try: 
+            browser.click_link_by_partial_text(hemi_titles[i])
+        except:
+            browser.find_link_by_text('2').first.click()
+            browser.click_link_by_partial_text(hemi_titles[i])
+        html = browser.html
+        soup3 = bs(html, "html.parser")
+
+        hemi_downloads = soup3.find('div', 'downloads')
+        #print(hemi_titles[i], i, '-------------')
+        hemi_url=hemi_downloads.a['href']
+        #print(hemi_url)
+        hemi_dict={"title": hemi_titles[i], 'img_url': hemi_url}
+        hemisphere_image_urls.append(hemi_dict)
+    mars_info['hemisphere_image_urls']=hemisphere_image_urls
+    #Return a dictionary to hold all the scraped info above 
+    print(mars_info)
     browser.quit()
     return mars_info
-
-    #optional:
-    # mars_info
+   
 
 
+
+
+
+    
