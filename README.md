@@ -33,9 +33,14 @@ Run with "python app.py"  commandline.
 ### File Structure
 The directory "mars_webscrape directory" contains scripts and templates
 
-### Results
-<img src = "https://github.com/sherirosalia/Web_Scraping/blob/master/%20results.png" width="300" alt="table of results">
-
 ### Landing Page
-![](landing.png)
+![](landing.png | width=400)
+
+### Info Table
+<img src = "https://github.com/sherirosalia/Web_Scraping/blob/master/%20results.png" width="400" alt="table of results">
+
+### Large Image
+![](result_img.png | width=400)
+### Mars Image
+![](mars_img.png | width=400)
 
