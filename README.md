@@ -29,14 +29,13 @@ Run with "python app.py"  commandline.
  Flask
  Bootstrap 4
 
+
 ### File Structure
 The directory "mars_webscrape directory" contains scripts and templates
 
+### Results
+<img src = "https://github.com/sherirosalia/Web_Scraping/blob/master/%20results.png" width="300" alt="table of results">
+
 ### Landing Page
 ![](landing.png)
-
-### Example of Results
-![](results.png)
-
-
 
