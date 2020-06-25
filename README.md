@@ -29,7 +29,6 @@ Run with "python app.py"  commandline.
  Flask
  Bootstrap 4
 
-
 ### File Structure
 The directory "mars_webscrape directory" contains scripts and templates
 
@@ -42,7 +41,6 @@ The directory "mars_webscrape directory" contains scripts and templates
 ### Large Image
 <img src = "https://github.com/sherirosalia/Web_Scraping/blob/master/result_img.png" width="400" alt="first large image">
 
-![](result_img.png | width=400)
 ### Mars Image
 <img src = "https://github.com/sherirosalia/Web_Scraping/blob/master/mars_img.png" width="400" alt="mars sphere">
 
