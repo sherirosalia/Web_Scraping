@@ -31,10 +31,10 @@ def scrape():
 
    #return "Scraped successfully!"
 
-   return redirect(“/”, code=302)
+   return redirect("/")
    #return redirect(“http://localhost:5000/“, code=302)
    #return redirect(“http://127.0.0.1:5000/“)
 
 if __name__ == "__main__":
-   app.run()
-   #app.run(debug=True)
+   #app.run()
+   app.run(debug=True)

@@ -7,6 +7,7 @@ import time
 import pandas as pd
 from splinter import Browser
 from selenium import webdriver
+import re
 
 
 #splinter browser for mac
@@ -19,6 +20,7 @@ def init_browser():
 def scrape():
     #from above
     browser = init_browser()
+    
     #dictionary for data
     mars_info = {}
 
@@ -26,35 +28,31 @@ def scrape():
     url = 'https://mars.nasa.gov/news/'
     #use splinter to open 
     browser.visit(url)
+    browser.is_element_present_by_css("ul.item_list li.slide", wait_time=1)
     #BeautifulSoup website object assigned variable, convert to html with BS4
     html = browser.html
     soup = bs(html, 'html.parser')
 
     #optional:
     #print html & id classes for title and paragraph
-    #print(soup.prettify())
-
-    #Latest Mars News:
-    #check for title
-    soup.find_all('div', class_='content_title', limit=2)
-
-    #check for paragraph
-    soup.find_all('div', class_= 'rollover_description_inner', limit=2)
-
-    news_title = soup.find('div', class_= 'content_title').find('a').text
-    print(news_title)
-
-    #extract paragraph object, assign variable
-
-    news_paragraph = soup.find('div', class_= 'rollover_description_inner').text
+    # print(soup.prettify())
     
+    #Latest Mars News:
 
+    elem = soup.select_one("ul.item_list li.slide")
+    # div > 'a' tag and save it as 'news_title'
+    news_title = elem.find("div", class_="content_title").get_text()
+    # div > paragraph text
+    news_paragraph = elem.find("div", class_="article_teaser_body").get_text()
+    #title
+    soup.find_all('div', class_='content_title', limit=2)
+    
     #add data to dictionary
     mars_info["news_title"]= news_title
     mars_info["news_paragraph"]= news_paragraph
 
     #optional:  
-    #print(mars_info)
+    # print(mars_info)
 
 
     #Featured Image from JPL Mars Space Images
@@ -93,13 +91,28 @@ def scrape():
     sentiment_url = 'https://twitter.com/marswxreport?lang=en'
     browser.visit(sentiment_url)
 
+    # pause browser
+    time.sleep(5)
+
     #use same variable, just reassign new info
     sentiment_html = browser.html
     
     #scrape with soup
     sentiment_soup = bs(sentiment_html, 'html.parser')
-    #assign variable to dictionary
-    mars_weather = sentiment_soup.find("p", class_= "TweetTextSize TweetTextSize--normal js-tweet-text tweet-text").text
+
+    tweet_deets = {"class": "tweet", "data-name": "Mars Weather"}
+    mars_tweet = sentiment_soup.find("div", attrs=tweet_deets)
+
+
+    try:
+        mars_weather = mars_tweet.find("p", "tweet-text").get_text()
+
+    except AttributeError:
+        pattern = re.compile(r'sol')
+        mars_weather = sentiment_soup.find('span', text=pattern).text
+
+    #this no longer works - site change
+    # mars_weather = sentiment_soup.find("div", class_= "css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutc0").text
 
     #optional:
     # print(mars_weather)
@@ -149,6 +162,9 @@ def scrape():
     
     browser.visit(hemi_url)
 
+    # pause browser
+    time.sleep(3)
+
     #use same variable, just reassign new info
     hemi_html = browser.html
     
@@ -178,11 +194,14 @@ def scrape():
     for i in range(len(hemi_titles)):
         try: 
             browser.click_link_by_partial_text(hemi_titles[i])
+            time.sleep(1)
         except:
             browser.find_link_by_text('2').first.click()
+            time.sleep(1)
             browser.click_link_by_partial_text(hemi_titles[i])
         html = browser.html
         soup3 = bs(html, "html.parser")
+
 
         hemi_downloads = soup3.find('div', 'downloads')
         #print(hemi_titles[i], i, '-------------')
