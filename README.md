@@ -15,7 +15,7 @@ https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=
 
 
 ### Screencast
-Screencast of web app here: <a href="https://sherirosalia.github.io/Web_Scraping/> Web Scraping Mars </a>
+Screencast of web app here: <a href="https://sherirosalia.github.io/Web_Scraping/"> Web Scraping Mars </a>
 
 ### Deployment 
 Localhost
