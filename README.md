@@ -1,5 +1,46 @@
-# Web_Scraping
-Mars web scraping and visualization project using python, beautiful soup and html in order to get the latest news about Mars.
+# Web Scraping Mars
+## Dynamic, real time browser automation and data collection
+Latest news about Mars in a user interface.
+
+### About
+NASA publicises data on a varity of platforms, and this project pulls information with the Python Beautiful Soup library from several different websites. 
+
+Data collected from these links:
+https://mars.nasa.gov/news/
+https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars
+https://www.jpl.nasa.gov/
+https://twitter.com/marswxreport?lang=en
+https://space-facts.com/mars/
+https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars
+
+
+### Screencast
+<video width="320" height="240" controls>
+  <source src="scrape_recording.mov" type="video/mp4">
+</video>
+
+### Deployment 
+Localhost
+
+I did have it deployed on Heroku at one point, but this proved problematic due to website updates breaking the code when they change format. For example, Twitter commonly changes css class names.
+
+Run with "python app.py"  commandline.
+
+### Frameworks
+ Python
+ Flask
+ Bootstrap 4
+
+### File Structure
+
+
+### Landing Page
+![](landing.png)
+
+### Results
+![](results.png)
+
+
 
 Landing page:
 <img width="1280" alt="screen shot 2019-01-13 at 12 55 16 pm" src="https://user-images.githubusercontent.com/32849807/51091356-a418a300-173e-11e9-95ec-0e4a5b95479c.png">
