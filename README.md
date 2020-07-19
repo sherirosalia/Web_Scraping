@@ -20,9 +20,9 @@ Screencast of web app here: <a href="https://sherirosalia.github.io/Web_Scraping
 ### Deployment 
 Localhost
 
-I did have it deployed on Heroku at one point, but this proved problematic due to website updates breaking the code when they change format. For example, Twitter commonly changes css class names.
+Run by inputting "python app.py" in bash or terminal.
 
-Run with "python app.py"  commandline.
+This was hosted externally for a while, but  proved problematic due to the changes on the sites being scraped.  For example, Twitter commonly changed the tweet css class names, and when it did the script broke. 
 
 ### Frameworks
  Python
